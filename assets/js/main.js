@@ -1,285 +1,54 @@
-var config = function() {
-	// after getting response
-	var onResponse = function(raw) {
-		var config = JSON.parse(raw);
-		/* deal with website title */
-		document.getElementsByTagName('title')[0].innerHTML = config.title;
-		/* deal with navigation bar */
-		// 1) navigaion title
-		document.getElementById('nav-title').innerHTML = config['nav-title'];
-		document.getElementById('nav-title').setAttribute('href', window.location.origin + window.location.pathname);
-		// 2) navigation links
-		var navNode = document.getElementById('nav-mobile');
-		while(navNode.children.length > 0) navNode.removeChild(navNode.children[0]);
-		for(var key in config.structure.pages) {
-			var newLi = document.createElement('li');
-			var newA = document.createElement('a');
-			var newText = document.createTextNode(key);
-			newA.setAttribute('onclick', 'navLink(this, \'' + config.structure.pages[key] + '\')');
-			newA.setAttribute('href', '#');
-			newA.appendChild(newText);
-			newLi.appendChild(newA);
-			navNode.appendChild(newLi);
-		}
-		// 3) side navigation links
-		var sideNavNode = document.getElementById('mobile-demo');
-		while(sideNavNode.children.length > 0) sideNavNode.removeChild(sideNavNode.children[0]);
-		for(var key in config.structure.pages) {
-			var newLi = document.createElement('li');
-			var newA = document.createElement('a');
-			var newText = document.createTextNode(key);
-			newA.setAttribute('onclick', 'navLink(this, \'' + config.structure.pages[key] + '\')');
-			newA.setAttribute('href', '#');
-			newA.appendChild(newText);
-			newLi.appendChild(newA);
-			sideNavNode.appendChild(newLi);
-		}
-		$('.button-collapse').sideNav();
-	}
-	doAJAX('GET', window.location.href + 'config.json', '', onResponse);
-}
-
-var navLink = function(navItem, jsonLocation) {
-	// hide sideNav, necessary when on medium or small screen
+// for now, divId could be: About, FAQ, hw1~hw10.
+var navLink = function(divId) {
+	// hide sideNav, it's necessary when on medium or small screen
 	$('.button-collapse').sideNav('hide');
 	// hide all other sections
 	var sections = document.getElementsByClassName('sections');
-	for(var i=0; i<sections.length; i++)
+	for(var i=0; i<sections.length; i++) {
 		sections[i].style.display = "none";
-	// display the designated item
-	var target = navItem.innerHTML;
-	if(target == "about") {
-		console.log('displaying about section with json located at: ' + jsonLocation);
-		getAbout(jsonLocation);
-	} else if(target == "publication") {
-		console.log('displaying publication section with json located at: ' + jsonLocation);
-		getPublication(jsonLocation);
-	} else if(target == "projects") {
-		console.log('displaying projects section with json located at: ' + jsonLocation);
-		getProjects(jsonLocation);
-	} else if(target == "skills") {
-		console.log('displaying skills section with json located at: ', jsonLocation);
-		getSkills(jsonLocation);
-	} else if(target == "contact") {
-		console.log('displaying contact section with json located at: ' + jsonLocation);
-		getContact(jsonLocation);
-	} else {
-		console.log('this sections: ' + target + ' is not implemented yet!');
-		return;
 	}
-	document.getElementById(target).style.display = "block";
+	// display the desirable div
+	document.getElementById(divId).style.display = "block";
 }
 
-var getAbout = function() {
-	console.log('under construction...');
-}
-
-var getPublication = function() {
-	console.log('under construction...');
-}
-
-var getProjects = function(jsonLocation) {
-	var createTechTag = function(tech, mainOrNot) {
-		var tag = document.createElement('div');
-		if(mainOrNot)
-			tag.setAttribute("class", "chip pink white-text");
+// set up all the forms in every homework
+var setupForms = function() {
+	// TODO: we can improve extendibility by getting "forms" information from file?
+	var forms = [{'formId': "hw7-thinning-form", "formType": "image", "benchmarkPath": "assets/img/thinned.bmp"}];
+	for(var i=0; i<forms.length; i++) {
+		if(forms[i].formType == "image")
+			setupImageForm(forms[i].formId, forms[i].benchmarkPath);
+		else if(forms[i].formType == "text")
+			setupTextForm(forms[i].formId, forms[i].benchmarkPath);
 		else
-			tag.setAttribute("class", "chip");
-		var text = document.createTextNode(tech);
-		tag.appendChild(text);
-		return tag;
+			console.log('special form: ' + forms[i].formId + ' found.');
 	}
-	// get response from json file
-	var onResponse = function(raw) {
-		var projects = JSON.parse(raw);
-		// fill in the research related projects
-		var RRPjDiv = document.getElementById('Research-Related-Projects');
-		for(var i=0; i<RRPjDiv.children.length; i++) {
-			if(RRPjDiv.children[i].tagName == "DIV") {
-				RRPjDiv.removeChild(RRPjDiv.children[i]);
-				i -= 1;
-			}
-		}
-		for(var i=0; i<projects.research.length; i++) {
-			var newPjDiv = document.createElement('div');
-			newPjDiv.setAttribute('class', 'row card hoverable');
-			var leftDiv = document.createElement('div');
-			var rightDiv = document.createElement('div');
-			leftDiv.setAttribute('class', 'col s12 m3');
-			rightDiv.setAttribute('class', 'col s12 m9');
-			var thumbnail = document.createElement('img');
-			thumbnail.setAttribute('src', projects.research[i].thumbnail);
-			thumbnail.setAttribute('class', 'responsive-img');
-			thumbnail.setAttribute('alt', 'project thumbnail');
-			leftDiv.appendChild(thumbnail);
-			var projectTitle = document.createElement('h4');
-			var projectTitleText = document.createTextNode(projects.research[i].title);
-			projectTitle.appendChild(projectTitleText);
-			var projectDescription = document.createElement('p');
-			var projectDescriptionText = document.createTextNode(projects.research[i].description);
-			projectDescription.appendChild(projectDescriptionText);
-			var projectLinks = document.createElement('div');
-			projectLinks.setAttribute('class', 'card-action');
-			for(var j=0; j<projects.research[i].links.length; j++) {
-				var newLink = document.createElement('a');
-				newLink.setAttribute('href', projects.research[i].links[j].linkUrl);
-				var newLinkText = document.createTextNode(projects.research[i].links[j].linkTitle);
-				newLink.appendChild(newLinkText);
-				projectLinks.appendChild(newLink);
-			}
-			rightDiv.appendChild(projectTitle);
-			for(var j=0; j<projects.research[i]['related-tech']['main'].length; j++) {
-				rightDiv.appendChild(createTechTag(projects.research[i]['related-tech']['main'][j], true));
-			}
-			for(var j=0; j<projects.research[i]['related-tech']['other'].length; j++) {
-				rightDiv.appendChild(createTechTag(projects.research[i]['related-tech']['other'][j], false));
-			}
-			rightDiv.appendChild(projectDescription);
-			rightDiv.appendChild(projectLinks);
-			newPjDiv.appendChild(leftDiv);
-			newPjDiv.appendChild(rightDiv);
-			RRPjDiv.appendChild(newPjDiv);
-		}
-		// fill in the nonresearch related projects
-		var nRRPjDiv = document.getElementById('NonResearch-Related-Projects');
-		for(var i=0; i<nRRPjDiv.children.length; i++) {
-			if(nRRPjDiv.children[i].tagName == "DIV") {
-				nRRPjDiv.removeChild(nRRPjDiv.children[i]);
-				i -= 1;
-			}
-		}
-		for(var i=0; i<projects.nonresearch.length; i++) {
-			var newPjDiv = document.createElement('div');
-			newPjDiv.setAttribute('class', 'row card hoverable');
-			var leftDiv = document.createElement('div');
-			var rightDiv = document.createElement('div');
-			leftDiv.setAttribute('class', 'col s12 m3');
-			rightDiv.setAttribute('class', 'col s12 m9');
-			var thumbnail = document.createElement('img');
-			thumbnail.setAttribute('src', projects.nonresearch[i].thumbnail);
-			thumbnail.setAttribute('class', 'responsive-img');
-			thumbnail.setAttribute('alt', 'project thumbnail');
-			leftDiv.appendChild(thumbnail);
-			var projectTitle = document.createElement('h4');
-			var projectTitleText = document.createTextNode(projects.nonresearch[i].title);
-			projectTitle.appendChild(projectTitleText);
-			var projectDescription = document.createElement('p');
-			var projectDescriptionText = document.createTextNode(projects.nonresearch[i].description);
-			projectDescription.appendChild(projectDescriptionText);
-			var projectLinks = document.createElement('div');
-			projectLinks.setAttribute('class', 'card-action');
-			for(var j=0; j<projects.nonresearch[i].links.length; j++) {
-				var newLink = document.createElement('a');
-				newLink.setAttribute('href', projects.nonresearch[i].links[j].linkUrl);
-				var newLinkText = document.createTextNode(projects.nonresearch[i].links[j].linkTitle);
-				newLink.appendChild(newLinkText);
-				projectLinks.appendChild(newLink);
-			}
-			rightDiv.appendChild(projectTitle);
-			for(var j=0; j<projects.nonresearch[i]['related-tech']['main'].length; j++) {
-				rightDiv.appendChild(createTechTag(projects.nonresearch[i]['related-tech']['main'][j], true));
-			}
-			for(var j=0; j<projects.nonresearch[i]['related-tech']['other'].length; j++) {
-				rightDiv.appendChild(createTechTag(projects.nonresearch[i]['related-tech']['other'][j], false));
-			}
-			rightDiv.appendChild(projectDescription);
-			rightDiv.appendChild(projectLinks);
-			newPjDiv.appendChild(leftDiv);
-			newPjDiv.appendChild(rightDiv);
-			nRRPjDiv.appendChild(newPjDiv);
-		}
-	}
-	doAJAX("GET", window.location.origin + window.location.pathname + jsonLocation, "", onResponse);
 }
 
-var getSkills = function(jsonLocation) {
-	// get response from json file
-	var onResponse = function(raw) {
-		var skills = JSON.parse(raw);
-		// fill in the advanced skills
-		var advSkillsDiv = document.getElementById('advanced-skills');
-		for(var i=0; i<advSkillsDiv.children.length; i++) {
-			if(advSkillsDiv.children[i].tagName == "DIV") {
-				advSkillsDiv.removeChild(advSkillsDiv.children[i]);
-				i -= 1;
+var setupImageForm = function(formId, benchmarkPath) {
+	var f = document.getElementById(formId);
+	f.addEventListener('submit', function(e) {
+		e.preventDefault();
+		var formData = new FormData(f);
+		formData.append('benchmarkPath', benchmarkPath);
+		doAJAX("POST", "check.php", formData, function(res) {
+			console.log('getting response: ' + res);
+			// write response to result div
+			var resultDiv = document.getElementById(formId + '-result');
+			if(res.indexOf('output: False') >= 0) {
+				resultDiv.children[0].children[0].innerHTML = "Result: False";
+			} else if(res.indexOf('output: True') >= 0) {
+				resultDiv.children[0].children[0].innerHTML = "Result: True";
+			} else {
+				resultDiv.children[0].children[0].innerHTML = "Result: Unknown...";
 			}
-		}
-		for(var i=0; i<skills.advanced.length; i++) {
-			var newSkillDiv = document.createElement('div');
-			newSkillDiv.setAttribute('class', 'col s4 m3 l2');
-			var thumbnail = document.createElement('img');
-			thumbnail.setAttribute('src', skills.advanced[i].thumbnail);
-			thumbnail.setAttribute('class', 'responsive-img');
-			thumbnail.setAttribute('alt', 'skill thumbnail');
-			var title = document.createElement('h6');
-			title.setAttribute('class', 'center');
-			var link = document.createElement('a');
-			link.setAttribute('href', skills.advanced[i].link);
-			var titleText = document.createTextNode(skills.advanced[i].title);
-			link.appendChild(titleText);
-			title.appendChild(link);
-			newSkillDiv.appendChild(thumbnail);
-			newSkillDiv.appendChild(title);
-			advSkillsDiv.appendChild(newSkillDiv);
-		}
-		// fill in the strong skills
-		var strongSkillsDiv = document.getElementById('strong-skills');
-		for(var i=0; i<strongSkillsDiv.children.length; i++) {
-			if(strongSkillsDiv.children[i].tagName == "DIV") {
-				strongSkillsDiv.removeChild(strongSkillsDiv.children[i]);
-				i -= 1;
-			}
-		}
-		for(var i=0; i<skills.strong.length; i++) {
-			var newSkillDiv = document.createElement('div');
-			newSkillDiv.setAttribute('class', 'col s4 m3 l2');
-			var thumbnail = document.createElement('img');
-			thumbnail.setAttribute('src', skills.strong[i].thumbnail);
-			thumbnail.setAttribute('class', 'responsive-img');
-			thumbnail.setAttribute('alt', 'skill thumbnail');
-			var title = document.createElement('h6');
-			title.setAttribute('class', 'center');
-			var link = document.createElement('a');
-			link.setAttribute('href', skills.strong[i].link);
-			var titleText = document.createTextNode(skills.strong[i].title);
-			link.appendChild(titleText);
-			title.appendChild(link);
-			newSkillDiv.appendChild(thumbnail);
-			newSkillDiv.appendChild(title);
-			strongSkillsDiv.appendChild(newSkillDiv);
-		}
-		// fill in the experienced skills
-		var expSkillsDiv = document.getElementById('experienced-skills');
-		for(var i=0; i<expSkillsDiv.children.length; i++) {
-			if(expSkillsDiv.children[i].tagName == "DIV") {
-				expSkillsDiv.removeChild(expSkillsDiv.children[i]);
-				i -= 1;
-			}
-		}
-		for(var i=0; i<skills.experienced.length; i++) {
-			var newSkillDiv = document.createElement('div');
-			newSkillDiv.setAttribute('class', 'col s4 m3 l2');
-			var thumbnail = document.createElement('img');
-			thumbnail.setAttribute('src', skills.experienced[i].thumbnail);
-			thumbnail.setAttribute('class', 'responsive-img');
-			thumbnail.setAttribute('alt', 'skill thumbnail');
-			var title = document.createElement('h6');
-			title.setAttribute('class', 'center');
-			var link = document.createElement('a');
-			link.setAttribute('href', skills.experienced[i].link);
-			var titleText = document.createTextNode(skills.experienced[i].title);
-			link.appendChild(titleText);
-			title.appendChild(link);
-			newSkillDiv.appendChild(thumbnail);
-			newSkillDiv.appendChild(title);
-			expSkillsDiv.appendChild(newSkillDiv);
-		}
-	}
-	doAJAX("GET", window.location.origin + window.location.pathname + jsonLocation, "", onResponse);
+			resultDiv.children[0].children[1].innerHTML = res;
+		}, true);
+	});
 }
 
-var getContact = function() {
-	console.log('under construction...');
+var setupTextForm = function(formId, benchmarkPath) {
+	console.log('inside setupTextForm() function... but not implemented yet!');
 }
 
 var doAJAX = function(method, url, data, funcOnSuc, asyncOrNot) {

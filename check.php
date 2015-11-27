@@ -1,5 +1,10 @@
 <?php
 
+
+if(!isset($_POST['benchmarkPath']) || empty($_POST['benchmarkPath'])) {
+	die('ERROR: didn\'t provide benchmark...');
+}
+
 $target_dir = dirname(__FILE__) . "/uploads/";
 $target_file = $target_dir . time() . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -30,7 +35,7 @@ if($uploadOk == 0) {
 	if(move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 		echo "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.<br />";
 		// execute the check_equal.py Python script
-		exec("./check_equal.py assets/img/thinned.bmp " . $target_file, $output, $return_val);
+		exec("./check_equal.py " . $_POST['benchmarkPath'] . " " . $target_file, $output, $return_val);
 		echo "output: ".$output[0]."<br />";
 		echo "return value: " . $return_val . "<br />";
 	} else {
