@@ -14,7 +14,12 @@ var navLink = function(divId) {
 // set up all the forms in every homework
 var setupForms = function() {
 	// TODO: we can improve extendibility by getting "forms" information from file?
-	var forms = [{'formId': "hw7-thinning-form", "formType": "image", "benchmarkPath": "assets/img/thinned.bmp"}, {'formId': "hw7-thinning-512-form", "formType": "image", "benchmarkPath": "assets/img/thinned_512.bmp"}];
+	var forms = [
+		{'formId': "hw7-thinning-2014-512-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_512.bmp"},
+		{'formId': "hw7-thinning-2014-64-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_64.bmp"},
+		{'formId': "hw7-thinning-2015-512-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_ver2_512.bmp"},
+		{'formId': "hw7-thinning-2015-64-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_ver2_64.bmp"}
+	];
 	console.log('inside setupForms(), and there are ' + forms.length + ' forms!');
 	for(var i=0; i<forms.length; i++) {
 		if(forms[i].formType == "image")
