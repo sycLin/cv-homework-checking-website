@@ -1,20 +1,26 @@
 #!/usr/bin/python
 import sys, os
 from PIL import Image
+from math import fabs
 
 def print_usage():
 	pass
 
-def eq(im1, im2):
+def eq(im1, im2, roughly=False):
 	if im1.size[0] != im2.size[0] or im1.size[1] != im2.size[1]:
 		return False
 	im1Pixels = im1.load()
 	im2Pixels = im2.load()
 	for i in xrange(im1.size[0]):
 		for j in xrange(im1.size[1]):
-			if im1Pixels[i, j] != im2Pixels[i, j]:
+			if im1Pixels[i, j] == im2Pixels[i, j]:
+				continue
+			elif roughly and fabs(im1Pixels[i, j] - im2Pixels[i, j]) <= 1.0:
+				continue
+			else:
 				return False
 	return True
+
 
 if __name__ == "__main__":
 	if len(sys.argv) != 3:
