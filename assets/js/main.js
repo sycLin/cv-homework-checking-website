@@ -57,6 +57,47 @@ var setupTextForm = function(formId, benchmarkPath) {
 	console.log('inside setupTextForm() function... but not implemented yet!');
 }
 
+var setupHW8form = function() {
+	var f = document.getElementById('hw8-form');
+	f.addEventListener('submit', function(e) {
+		e.preventDefault();
+		// check if any of the checkboxes is checked
+		if(!document.getElementById('box3').checked
+			&& !document.getElementById('box5').checked
+			&& !document.getElementById('med3').checked
+			&& !document.getElementById('med5').checked
+			&& !document.getElementById('otc').checked
+			&& !document.getElementById('cto').checked) {
+			console.log('none of the checkboxes is checked...');
+			alert('None of the checkboxes is checked! Aborting execution.');
+			return;
+		}
+		var formData = new FormData(f);
+		// put a preloader into result section
+		var resultDiv = document.getElementById('hw8-result');
+		resultDiv.innerHTML = '<div class="preloader-wrapper big active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>';
+		// do the AJAX call
+		doAJAX("POST", "checkHW8.php", formData, function(res) {
+			console.log("getting response: " + res);
+			var resultDiv = document.getElementById('hw8-result');
+			var inner = '<span class="card-title">Result:</span>';
+			if(res == "Error." || res.indexOf('[ERROR]') >= 0) {
+				inner += '<p>' + res + '</p>';
+			} else {
+				parsed = JSON.parse(res);
+				inner += '<p>';
+				for(var k in parsed)
+					if(parsed[k] != '(not found)')
+						inner += (k + ': yes.<br />');
+					else
+						inner += (k + ': ' + parsed[k] + '<br />');
+				inner += '</p>';
+			}
+			resultDiv.innerHTML = inner;
+		}, true);
+	});
+}
+
 var doAJAX = function(method, url, data, funcOnSuc, asyncOrNot) {
 	// asyncOrNot is an optional parameter
 	if(asyncOrNot == undefined)
