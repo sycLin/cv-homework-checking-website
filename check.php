@@ -43,5 +43,7 @@ if($uploadOk == 0) {
 	}
 }
 
+unlink($target_file);
+
 
 ?>
