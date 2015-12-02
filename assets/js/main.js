@@ -58,7 +58,25 @@ var setupImageForm = function(formId, benchmarkPath) {
 }
 
 var setupTextForm = function(formId, benchmarkPath) {
-	console.log('inside setupTextForm() function... but not implemented yet!');
+	var f = document.getElementById(formId);
+	f.addEventListener('submit', function(e) {
+		e.preventDefault();
+		var formData = new FormData(f);
+		formData.append('benchmarkPath', benchmarkPath);
+		doAJAX("POST", "check_text.php", formData, function(res) {
+			console.log('getting response: ' + res);
+			// write response to result div
+			var resultDiv = document.getElementById(formId + '-result');
+			if(res.indexOf('output: False') >= 0) {
+				resultDiv.children[0].children[0].innerHTML = "Result: False";
+			} else if(res.indexOf('output: True') >= 0) {
+				resultDiv.children[0].children[0].innerHTML = "Result: True";
+			} else {
+				resultDiv.children[0].children[0].innerHTML = "Result: Unknown...";
+			}
+			resultDiv.children[0].children[1].innerHTML = res;
+		}, true);
+	});
 }
 
 var setupHW8form = function() {
