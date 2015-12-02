@@ -247,7 +247,55 @@
 			</div>
 			<div class="divider col s12"></div>
 			<div class="col s12">
-				<p>Latest update: 2015/12/1 21:54</p>
+				<p>Latest update: 2015/12/2 15:54</p>
+			</div>
+			<!-- the usage description -->
+			<div class="col s12">
+				<ul class="collapsible" data-collapsible="accordion">
+					<li>
+						<div class="collapsible-header active"><i class="material-icons">assignment</i>README</div>
+						<div class="collapsible-body"><p>
+							1) Upload your noisy image (no matter it's gaussian/salt-and-pepper) via "Upload src:" area.<br />
+							2) Upload your processed images via "Upload processed:" area.<br />
+							3) The "Upload processed:" area supports muiltiple-file uploads you can choose as many images as you like.<br />
+							4) The checkboxes are here to help "saving your time" by comparing with only the processed images that are checked.<br />
+							</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<!-- begin the forms -->
+			<div class="col s12 m6">
+				<fieldset>
+					<legend>De-noising</legend>
+					<p>Upload your noisy and de-noised images.</p>
+					<form id="hw8-form" action="checkHW8.php" method="POST" enctype="multipart/form-data">
+						<p>Upload src: <input type="file" name="src" /></p>
+						<p>Upload processed: <input type="file" name="processed[]" multiple /></p>
+						<p>What do you wanna test?</p>
+						<input type="checkbox" name="box3" value="box3" id="box3" class="filled-in" />
+						<label for="box3">Box filter 3x3</label><br />
+						<input type="checkbox" name="box5" value="box5" id="box5" class="filled-in" />
+						<label for="box5">Box filter 5x5</label><br />
+						<input type="checkbox" name="med3" value="med3" id="med3" class="filled-in" />
+						<label for="med3">Median filter 3x3</label><br />
+						<input type="checkbox" name="med5" value="med5" id="med5" class="filled-in" />
+						<label for="med5">Median filter 5x5</label><br />
+						<input type="checkbox" name="otc" value="onc" id="otc" class="filled-in" />
+						<label for="otc">Opening-then-closing</label><br />
+						<input type="checkbox" name="cto" value="cto" id="cto" class="filled-in" />
+						<label for="cto">Closing-then-opening</label><br />
+						<input type="submit" name="submit" />
+					</form>
+				</fieldset>
+			</div>
+			<div class="col s12 m6">
+				<div class="card blue-grey darken-1">
+					<div class="card-content white-text" id="hw8-result">
+						<span class="card-title">Result:</span>
+						<p></p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -266,6 +314,7 @@
 	$(".button-collapse").sideNav();
 	navLink('about');
 	setupForms();
+	setupHW8form();
 	</script>
 </body>
 </html>
