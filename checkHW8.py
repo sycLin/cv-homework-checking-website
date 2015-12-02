@@ -42,7 +42,7 @@ if __name__ == "__main__":
 		else:
 			tmp = hw8.boxFiltering(src, (3, 3))
 			for i in range(len(processed)):
-				if eq(tmp, processed[i]):
+				if eq(tmp, processed[i], True):
 					# remove the image from the list
 					# and record the file name to dictionary
 					processed.pop(i)
@@ -57,7 +57,7 @@ if __name__ == "__main__":
 		else:
 			tmp = hw8.boxFiltering(src, (5, 5))
 			for i in range(len(processed)):
-				if eq(tmp, processed[i]):
+				if eq(tmp, processed[i], True):
 					# remove the image from the list
 					# and record the file name to dictionary
 					processed.pop(i)
@@ -72,7 +72,7 @@ if __name__ == "__main__":
 		else:
 			tmp = hw8.medianFiltering(src, (3, 3))
 			for i in range(len(processed)):
-				if eq(tmp, processed[i]):
+				if eq(tmp, processed[i], True):
 					# remove the image from the list
 					# and record the file name to dictionary
 					processed.pop(i)
@@ -87,7 +87,7 @@ if __name__ == "__main__":
 		else:
 			tmp = hw8.medianFiltering(src, (5, 5))
 			for i in range(len(processed)):
-				if eq(tmp, processed[i]):
+				if eq(tmp, processed[i], True):
 					# remove the image from the list
 					# and record the file name to dictionary
 					processed.pop(i)
@@ -103,7 +103,7 @@ if __name__ == "__main__":
 		else:
 			tmp = hw8.closing(hw8.opening(src, octoKernel), octoKernel)
 			for i in range(len(processed)):
-				if eq(tmp, processed[i]):
+				if eq(tmp, processed[i], True):
 					# remove the image from the list
 					# and record the file name to dictionary
 					processed.pop(i)
@@ -118,7 +118,7 @@ if __name__ == "__main__":
 		else:
 			tmp = hw8.opening(hw8.closing(src, octoKernel), octoKernel)
 			for i in range(len(processed)):
-				if eq(tmp, processed[i]):
+				if eq(tmp, processed[i], True):
 					# remove the image from the list
 					# and record the file name to dictionary
 					processed.pop(i)
