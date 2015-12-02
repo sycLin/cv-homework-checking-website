@@ -6,8 +6,8 @@ def print_usage():
 
 def eq(txt1, txt2):
 	# remove all new-lines and tabs
-	txt1 = txt1.replace("\n", "").replace("\t", "")
-	txt2 = txt2.replace("\n", "").replace("\t", "")
+	txt1 = txt1.replace("\n", "").replace("\t", "").replace("\r", "")
+	txt2 = txt2.replace("\n", "").replace("\t", "").replace("\r", "")
 	return (txt1 == txt2)
 
 if __name__ == "__main__":

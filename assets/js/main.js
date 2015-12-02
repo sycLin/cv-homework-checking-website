@@ -19,6 +19,7 @@ var setupForms = function() {
 		{'formId': "hw5-erosion-form", "formType": "image", "benchmarkPath": "assets/img/hw5/Erosion.bmp"},
 		{'formId': "hw5-opening-form", "formType": "image", "benchmarkPath": "assets/img/hw5/Opening.bmp"},
 		{'formId': "hw5-closing-form", "formType": "image", "benchmarkPath": "assets/img/hw5/Closing.bmp"},
+		{'formId': "hw6-yokoi-form", "formType": "text", "benchmarkPath": "assets/text/hw6/yokoi_result.txt"},
 		{'formId': "hw7-thinning-2014-512-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_512.bmp"},
 		{'formId': "hw7-thinning-2014-64-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_64.bmp"},
 		{'formId': "hw7-thinning-2015-512-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_ver2_512.bmp"},
