@@ -15,6 +15,10 @@ var navLink = function(divId) {
 var setupForms = function() {
 	// TODO: we can improve extendibility by getting "forms" information from file?
 	var forms = [
+		{'formId': "hw5-dilation-form", "formType": "image", "benchmarkPath": "assets/img/hw5/Dilation.bmp"},
+		{'formId': "hw5-erosion-form", "formType": "image", "benchmarkPath": "assets/img/hw5/Erosion.bmp"},
+		{'formId': "hw5-opening-form", "formType": "image", "benchmarkPath": "assets/img/hw5/Opening.bmp"},
+		{'formId': "hw5-closing-form", "formType": "image", "benchmarkPath": "assets/img/hw5/Closing.bmp"},
 		{'formId': "hw7-thinning-2014-512-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_512.bmp"},
 		{'formId': "hw7-thinning-2014-64-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_64.bmp"},
 		{'formId': "hw7-thinning-2015-512-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_ver2_512.bmp"},
