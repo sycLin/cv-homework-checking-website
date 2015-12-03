@@ -117,6 +117,125 @@
 				<p>Latest update: 2015/12/3 11:49</p>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col s12">
+				<ul class="collapsible" data-collapsible="accordion">
+					<!-- non-coding part -->
+					<li>
+						<div class="collapsible-header"><i class="material-icons">assignment</i>For Non-Coding Part</div>
+						<div class="collapsible-body">
+							<p></p>
+							<div class="container">
+								<div class="row">
+									<!-- rotated image -->
+									<div class="col s12 m4 center">
+										<img class="responsive-img" src="assets/img/hw1/lena_rotated.bmp">
+										<span class="grey-text text-darken-4">Rotated 45&deg; clockwise</span>
+									</div>
+									<!-- shrinked image -->
+									<div class="col s12 m4 center">
+										<img class="responsive-img" src="assets/img/hw1/lena_shrinked.bmp">
+										<span class="grey-text text-darken-4">Shrinked in half</span>
+									</div>
+									<!-- binarized image -->
+									<div class="col s12 m4 center">
+										<img class="responsive-img" src="assets/img/hw1/lena_binarized.bmp">
+										<span class="grey-text text-darken-4">Binarized at 128</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<!-- coding part -->
+					<li>
+						<div class="collapsible-header active"><i class="material-icons">code</i>For Coding Part</div>
+						<div class="collapsible-body">
+							<p></p>
+							<div class="container">
+								<!-- row for first image: upside-down  -->
+								<div class="row">
+									<div class="col s12 m6">
+										<img class="responsive-img" src="assets/img/hw1/upside_down.bmp" alt="upside down image" />
+									</div>
+									<div class="col s12 m6">
+										<h5>Check if we match:</h5>
+										<form id="hw1-upside-down-form" method="POST" enctype="multipart/form-data">
+											<div class="file-field input-field">
+												<div class="btn">
+													<span>File</span><input type="file" name="fileToUpload" id="fileToUpload" />
+												</div>
+												<div class="file-path-wrapper">
+													<input class="file-path validate" type="text" placeholder="upload your upside down image" />
+												</div>
+											</div>
+											<button class="btn waves-effect waves-light">Verify<i class="material-icons right">send</i></button>
+										</form>
+										<div id="hw1-upside-down-form-result" class="card blue-grey darken-1">
+											<div class="card-content white-text">
+												<span class="card-title">Result:</span>
+												<p id='result-detail'></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- row for first image: rightside-left  -->
+								<div class="row">
+									<div class="col s12 m6">
+										<img class="responsive-img" src="assets/img/hw1/rightside_left.bmp" alt="rightside left image" />
+									</div>
+									<div class="col s12 m6">
+										<h5>Check if we match:</h5>
+										<form id="hw1-rightside-left-form" method="POST" enctype="multipart/form-data">
+											<div class="file-field input-field">
+												<div class="btn">
+													<span>File</span><input type="file" name="fileToUpload" id="fileToUpload" />
+												</div>
+												<div class="file-path-wrapper">
+													<input class="file-path validate" type="text" placeholder="upload your rightside left image" />
+												</div>
+											</div>
+											<button class="btn waves-effect waves-light">Verify<i class="material-icons right">send</i></button>
+										</form>
+										<div id="hw1-rightside-left-form-result" class="card blue-grey darken-1">
+											<div class="card-content white-text">
+												<span class="card-title">Result:</span>
+												<p id='result-detail'></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- row for first image: diagonally-mirrored  -->
+								<div class="row">
+									<div class="col s12 m6">
+										<img class="responsive-img" src="assets/img/hw1/diagonally_mirrored.bmp" alt="diagonally mirrored image" />
+									</div>
+									<div class="col s12 m6">
+										<h5>Check if we match:</h5>
+										<form id="hw1-diagonally-mirrored-form" method="POST" enctype="multipart/form-data">
+											<div class="file-field input-field">
+												<div class="btn">
+													<span>File</span><input type="file" name="fileToUpload" id="fileToUpload" />
+												</div>
+												<div class="file-path-wrapper">
+													<input class="file-path validate" type="text" placeholder="upload your diagonally mirrored image" />
+												</div>
+											</div>
+											<button class="btn waves-effect waves-light">Verify<i class="material-icons right">send</i></button>
+										</form>
+										<div id="hw1-diagonally-mirrored-form-result" class="card blue-grey darken-1">
+											<div class="card-content white-text">
+												<span class="card-title">Result:</span>
+												<p id='result-detail'></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 	<div id="hw2" class="container sections">
 		<div class="card row">
