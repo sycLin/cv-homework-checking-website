@@ -26,6 +26,6 @@ echo "output: " . $output[0] . "<br />";
 echo "return value: " . $return_val . "<br />";
 
 // remove the uploaded file
-//unlink($target_file);
+unlink($target_file);
 
 ?>
