@@ -129,6 +129,31 @@ var setupHW8form = function() {
 	});
 }
 
+var setupHW9form = function() {
+	var f = document.getElementById('hw9-form');
+	f.addEventListener('submit', function(e) {
+		e.preventDefault();
+		var formData = new FormData(f);
+		// put a preloader into result section
+		var resultDiv = document.getElementById('hw9-result');
+		resultDiv.innerHTML = '<div class="preloader-wrapper big active"><div class="spinner-layer spinner-blue"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-red"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-yellow"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div><div class="spinner-layer spinner-green"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>';
+		// do the AJAX call
+		doAJAX("POST", "checkHW9.php", formData, function(res) {
+			console.log("getting response: " + res);
+			var resultDiv = document.getElementById('hw9-result');
+			var inner = '<span class="card-title">Result:</span>';
+			if(res == "Error." || res.indexOf('[ERROR]') >= 0) {
+				inner += '<p>' + res + '</p>';
+			} else {
+				inner += '<p>';
+				inner += res;
+				inner += '</p>';
+			}
+			resultDiv.innerHTML = inner;
+		}, true);
+	});
+}
+
 var doAJAX = function(method, url, data, funcOnSuc, asyncOrNot) {
 	// asyncOrNot is an optional parameter
 	if(asyncOrNot == undefined)
