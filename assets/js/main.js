@@ -15,6 +15,7 @@ var navLink = function(divId) {
 var setupForms = function() {
 	// TODO: we can improve extendibility by getting "forms" information from file?
 	var forms = [
+		/* SAMPLE: {'formId': "...", "formType": "...", "benchmarkPath": "..."} */
 		{'formId': "hw1-upside-down-form", "formType": "image", "benchmarkPath": "assets/img/hw1/upside_down.bmp"},
 		{'formId': "hw1-rightside-left-form", "formType": "image", "benchmarkPath": "assets/img/hw1/rightside_left.bmp"},
 		{'formId': "hw1-diagonally-mirrored-form", "formType": "image", "benchmarkPath": "assets/img/hw1/diagonally_mirrored.bmp"},
@@ -31,7 +32,12 @@ var setupForms = function() {
 		{'formId': "hw7-thinning-2014-512-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_512.bmp"},
 		{'formId': "hw7-thinning-2014-64-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_64.bmp"},
 		{'formId': "hw7-thinning-2015-512-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_ver2_512.bmp"},
-		{'formId': "hw7-thinning-2015-64-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_ver2_64.bmp"}
+		{'formId': "hw7-thinning-2015-64-form", "formType": "image", "benchmarkPath": "assets/img/hw7/thinned_ver2_64.bmp"},
+		{'formId': "hw10-laplace-mask-type-1-form", "formType": "image", "benchmarkPath": "assets/img/hw10/laplacian_1.bmp"},
+		{'formId': "hw10-laplace-mask-type-2-form", "formType": "image", "benchmarkPath": "assets/img/hw10/laplacian_2.bmp"},
+		{'formId': "hw10-minimum-variance-laplacian-form", "formType": "image", "benchmarkPath": "assets/img/hw10/min_var_laplacian.bmp"},
+		{'formId': "hw10-laplace-of-gaussian-form", "formType": "image", "benchmarkPath": "assets/img/hw10/laplacian_of_gaussian.bmp"},
+		{'formId': "hw10-difference-of-gaussian-form", "formType": "image", "benchmarkPath": "assets/img/hw10/diff_of_gaussian.bmp"}
 	];
 	console.log('inside setupForms(), and there are ' + forms.length + ' forms!');
 	for(var i=0; i<forms.length; i++) {
